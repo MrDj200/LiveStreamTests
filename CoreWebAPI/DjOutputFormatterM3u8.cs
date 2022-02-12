@@ -30,7 +30,7 @@ namespace CoreWebAPI
 
             Response.StatusCode = StatusCodes.Status200OK;
             Response.ContentLength = FileContent.Length;
-            Response.ContentType = MIME;                       
+            Response.ContentType = MIME;
         }
     }
 }
