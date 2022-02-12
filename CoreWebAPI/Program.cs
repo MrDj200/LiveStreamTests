@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using System.IO.Pipelines;
-using System.Linq;
 
 namespace CoreWebAPI
 {
     class CoreWebAPI
-    {        
+    {
         static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +41,7 @@ namespace CoreWebAPI
 
             app.Run();
 
-            
+
             static void PutShit(IConfiguration cfg, HttpContext context, IFormFile file, [FromRoute] string? route = "")
             {
                 string contentType = "text/html";
@@ -89,12 +87,12 @@ namespace CoreWebAPI
                 return Results.LocalRedirect($"/index/{myFile}");
             }
 
-            static IResult GetIndex(IConfiguration cfg, [FromRoute]string route = "NOTHING")
+            static IResult GetIndex(IConfiguration cfg, [FromRoute] string route = "NOTHING")
             {
                 var dir = @"Video/";
                 var files = Directory.GetFiles(dir).Select(f => f.Replace(dir, "")).ToArray();
 
-                Console.WriteLine($"Getting request for {route}");                
+                Console.WriteLine($"Getting request for {route}");
 
                 if (route == "NOTHING")
                 {
