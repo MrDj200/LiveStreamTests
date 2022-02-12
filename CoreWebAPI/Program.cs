@@ -26,6 +26,8 @@ namespace CoreWebAPI
             app.MapGet("/liveOld", GetLive);
             app.MapGet("/tests/{route?}", GetTest);
 
+            app.MapGet("/livetest/{file?}", GetLiveStream);
+
             app.MapPut("/put/{route?}", PutShit);
 
             // Configure the HTTP request pipeline.
@@ -149,6 +151,27 @@ namespace CoreWebAPI
                 }
 
                 return Results.File(@$"{Path.GetFullPath(dir)}{route}", contentType: contentType, enableRangeProcessing: true);
+            }
+
+            //[HttpGet("/livetest/{file?}")]
+            [Produces("application/x-mpegURL", "video/MP2T")]
+            static async Task<IResult> GetLiveStream([FromRoute] string? file = "")
+            {
+                if (string.IsNullOrEmpty(file))
+                {
+                    return Results.BadRequest();
+                }
+                if (file.EndsWith(".m3u8"))
+                {
+                    using (var stream = FileBuffer.playlistFile)
+                    {
+                        //Request.Headers.Accept = "application/x-mpegURL";
+                        //Response.Headers.Accept = "application/x-mpegURL";
+                        return Results.Bytes(stream.GetBuffer(), contentType: "application/x-mpegURL", fileDownloadName: file, enableRangeProcessing: true);
+                    }
+                    //return Results.Stream(FileBuffer.playlistFile, contentType: "application/x-mpegURL", fileDownloadName: file, enableRangeProcessing: true);
+                }
+                return Results.NotFound();
             }
 
         }
