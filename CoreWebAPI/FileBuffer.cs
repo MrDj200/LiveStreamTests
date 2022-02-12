@@ -1,4 +1,4 @@
-﻿namespace CoreWebAPI.Video
+﻿namespace CoreWebAPI
 {
     public static class FileBuffer
     {

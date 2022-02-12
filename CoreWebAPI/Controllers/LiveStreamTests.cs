@@ -1,6 +1,4 @@
-﻿using CoreWebAPI.Video;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace CoreWebAPI.Controllers
 {
