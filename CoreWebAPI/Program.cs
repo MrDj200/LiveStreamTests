@@ -10,7 +10,11 @@ namespace CoreWebAPI
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+                options.OutputFormatters.Insert(0, new DjOutputFormatterM3u8());
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
