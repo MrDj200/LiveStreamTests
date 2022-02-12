@@ -22,15 +22,16 @@ namespace CoreWebAPI
                 return;
             }
 
+            Response.StatusCode = StatusCodes.Status200OK;
+            Response.ContentLength = FileContent.Length;
+            Response.ContentType = MIME;
+
             var WriteResult = await Response.BodyWriter.WriteAsync(new ReadOnlyMemory<byte>(FileContent, 0, FileContent.Length));
             if (WriteResult.IsCanceled)
             {
                 return;
             }
-
-            Response.StatusCode = StatusCodes.Status200OK;
-            Response.ContentLength = FileContent.Length;
-            Response.ContentType = MIME;
+            
         }
     }
 }
