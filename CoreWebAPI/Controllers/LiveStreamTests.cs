@@ -17,6 +17,7 @@ namespace CoreWebAPI.Controllers
         [Produces("application/x-mpegURL", "video/MP2T")]
         public async Task<IResult> GetLiveStream([FromRoute] string? file = "")
         {
+            _logger.LogInformation($"Got GET Request for \"{file}\"");
             if (string.IsNullOrEmpty(file))
             {
                 return Results.BadRequest();
