@@ -29,7 +29,7 @@ namespace CoreWebAPI
             var WriteResult = await Response.BodyWriter.WriteAsync(new ReadOnlyMemory<byte>(FileContent, 0, FileContent.Length));
             if (WriteResult.IsCanceled)
             {
-                return;
+                return; // TODO: Handle this or other error shit
             }
             
         }

@@ -34,7 +34,7 @@ namespace CoreWebAPI.Controllers
         [HttpPut("/stream/{route?}", Name = "PutShit")]
         public async Task<IResult> PutShit([FromRoute] string route = "")
         {
-            Console.WriteLine($"Got put request for \"{route}\"");
+            _logger.LogInformation($"Got PUT Request for \"{route}\"");
             if (!await FileBuffer.AddStream(Request.Body, route))
             {
                 return Results.BadRequest();
