@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <input type="file" name="myFile" id="profilePicInput">
+    <script>
+        const profileInput = document.getElementById('profilePicInput');
+        profileInput.addEventListener("change", handleFiles, false);
+
+        function handleFiles(){
+
+            let formData = new FormData();
+            formData.append("fileToUpload", profileInput.files[0]);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('PUT', "http://localhost:5007/stream/test");
+            xhr.onload = () => {
+                console.log("profile updated");
+            };
+            xhr.send(formData);
+
+        }
+    </script>    
+</body>
+</html>
