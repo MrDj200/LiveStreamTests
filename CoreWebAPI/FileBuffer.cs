@@ -30,14 +30,14 @@
             bool isM3u8 = fileName.EndsWith(".m3u8");
             bool isTs = fileName.EndsWith(".ts");
 
-            if (!isM3u8 || !isTs || stream == null)
+            if ((!isM3u8 && !isTs) || !stream.CanRead)
             {
                 return false;
             }
             if (isM3u8)
             {
                 playlistFile.SetLength(0);
-                await stream.CopyToAsync(stream);
+                await stream.CopyToAsync(playlistFile);
                 return true;
             }
             if (isTs)
