@@ -14,7 +14,7 @@ namespace CoreWebAPI.Controllers
         }
 
         [HttpGet("/live/{file?}")]
-        //[Produces("application/vnd.apple.mpegurl")]
+        [Produces("application/x-mpegURL", "video/MP2T")]
         public async Task<IResult> GetLiveStream([FromRoute] string? file = "")
         {
             if (string.IsNullOrEmpty(file))
