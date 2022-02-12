@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace CoreWebAPI.Controllers
 {
@@ -27,6 +28,19 @@ namespace CoreWebAPI.Controllers
                 using (var stream = FileBuffer.playlistFile)
                 {
                     return Results.File(stream.GetBuffer(), contentType: "application/x-mpegURL", fileDownloadName: file, enableRangeProcessing: true);
+                }
+            }
+            if (file.EndsWith(".ts"))
+            {
+                var matchVal = Regex.Match(file, @".*?(\d+)\..*"); // Match file name 
+                if (!matchVal.Success) // Check if match was a success
+                {
+                    return Results.BadRequest();
+                }
+                var streamIndex = ulong.Parse(matchVal.Groups[1].Value); // Use the matched number to get the index
+                using (var stream = FileBuffer.GetStream(streamIndex))
+                {
+                    return Results.File(stream.GetBuffer(), contentType: "video/MP2T", fileDownloadName: file, enableRangeProcessing: true);
                 }
             }
             return Results.NotFound();
