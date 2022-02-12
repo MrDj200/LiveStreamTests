@@ -27,7 +27,6 @@ namespace CoreWebAPI.Controllers
                 {
                     return Results.File(stream.GetBuffer(), contentType: "application/x-mpegURL", fileDownloadName: file, enableRangeProcessing: true);
                 }
-                //return Results.Stream(FileBuffer.playlistFile, contentType: "application/x-mpegURL", fileDownloadName: file, enableRangeProcessing: true);
             }
             return Results.NotFound();
         }
